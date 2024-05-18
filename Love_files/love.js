@@ -237,8 +237,8 @@
             var x = seed.x || this.width / 2;
             var y = seed.y || this.height / 2;
             var point = new Point(x, y);
-            var color = seed.color || '#FF0000';
-            var scale = seed.scale || 1;
+            var color = seed.color || '#ffffff';
+            var scale = seed.scale || 2;
 
             this.seed = new Seed(this, point, scale, color);
         },
