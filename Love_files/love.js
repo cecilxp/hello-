@@ -471,8 +471,9 @@
     Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
         this.tree = tree;
         this.point = point;
-        var randomBlue = Math.floor(Math.random() * 256); // Genera un numero casuale tra 0 e 255 per il canale blu
-        this.color = 'rgb(0, 0, ' + randomBlue + ')';
+        //var randomBlue = Math.floor(Math.random() * 256); // Genera un numero casuale tra 0 e 255 per il canale blu
+        //this.color = 'rgb(0, 0, ' + randomBlue + ')';
+        this.color = color || 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',255)'
         this.alpha = alpha || random(0.3, 1);
         this.angle = angle || random(0, 360);
         this.scale = scale || 0.1;
