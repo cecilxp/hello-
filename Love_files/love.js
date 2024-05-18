@@ -52,7 +52,7 @@
         }
     }
 
-    Heart = function() {
+    /*Heart = function() {
         // x = 16 sin^3 t
         // y = 13 cos t - 5 cos 2t - 2 cos 3t - cos 4t
         // http://www.wolframalpha.com/input/?i=x+%3D+16+sin%5E3+t%2C+y+%3D+(13+cos+t+-+5+cos+2t+-+2+cos+3t+-+cos+4t)
@@ -65,6 +65,34 @@
         }
         this.points = points;
         this.length = points.length;
+    }
+    Heart.prototype = {
+        get: function(i, scale) {
+            return this.points[i].mul(scale || 1);
+        }
+    }*/
+    function heart(ctx, x, y, scale, color) {
+        var points = [], xCoord, yCoord, t;
+    
+        for (var i = 0; i < 360; i += 10) {
+            t = i * Math.PI / 180;
+            xCoord = (16 * Math.pow(Math.sin(t), 3)) * scale;
+            yCoord = (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * scale;
+            points.push(new Point(xCoord, yCoord));
+        }
+
+    
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (var i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = color || '#FFD700'; // Colore predefinito: oro
+        ctx.fill();
+        ctx.restore();
     }
     Heart.prototype = {
         get: function(i, scale) {
