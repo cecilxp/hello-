@@ -49,7 +49,7 @@ function timeElapse(date){
     var seconds = diff % 60;
 
     // 格式化输出
-    var result = `第 <span class="digit">${days}</span> 天 <span class="digit">${hours}</span> 小时 <span class="digit">${minutes}</span> 分钟 <span class="digit">${seconds}</span> 秒<span class="digit">${date}</span>`;
+    var result = `第 <span class="digit">${days}</span> 天 <span class="digit">${hours}</span> 小时 <span class="digit">${minutes}</span> 分钟 <span class="digit">${seconds}</span> 秒`;
     
     // 更新页面中的元素
     document.getElementById("clock").innerHTML = result;
