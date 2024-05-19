@@ -51,20 +51,20 @@
         }
     }
 
-function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
-    this.points = [];
-    var angleStep = Math.PI / numPoints; // Passo angolare per alternare tra punti esterni ed interni
-    var angle = -Math.PI / 2; // Iniziamo dalla parte superiore della stella
+function Heart(numStars, speed, maxSize) {
+    const stars = [];
 
-    for (var i = 0; i < numPoints * 2; i++) {
-        var radius = (i % 2 === 0) ? outerRadius : innerRadius; // Alterna tra il raggio esterno e quello interno
-        var x = radius * Math.cos(angle); // Calcola la posizione x
-        var y = radius * Math.sin(angle); // Calcola la posizione y
-        this.points.push(new Point(x, y)); // Aggiungi il punto alla lista
-        angle += angleStep; // Incrementa l'angolo
-    }
+    for (let i = 0; i < numStars; i++) {
+        stars.push({
+        x: randomInRange(0, canvas.width),
+        y: randomInRange(0, canvas.height),
+        size: randomInRange(1, maxSize),
+        speed: randomInRange(speed / 2, speed),
+        opacity: randomInRange(0.1, 1),
+        });
+      }
 
-    this.length = this.points.length;
+    return stars;
 }
     Heart.prototype = {
         get: function(i, scale) {
