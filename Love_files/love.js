@@ -264,7 +264,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
         initBloom: function() {
             var bloom = this.opt.bloom || {};
             var cache = [],
-                num = bloom.num || 900, 
+                num = bloom.num || 700, 
                 width = bloom.width || this.width,
                 height = bloom.height || this.height,
                 figure = this.seed.heart.figure;
@@ -472,7 +472,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
         }
     }
 function randomColor() {
-    if (Math.random() < 0.98) {
+    if (Math.random() < 0.95) {
         return 'rgb(0, 0, ' + Math.floor(Math.random() * 256) + ')';
     } else {
         return 'rgb(255,255 , 255)';
