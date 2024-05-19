@@ -56,7 +56,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
     var angleStep = Math.PI / numPoints; // Passo angolare per alternare tra punti esterni ed interni
     var angle = -Math.PI / 2; // Iniziamo dalla parte superiore della stella
 
-    for (var i = 0; i < numPoints * 2+1; i++) {
+    for (var i = 0; i < numPoints * 2+2; i++) {
         var radius = (i % 2 === 0) ? outerRadius : innerRadius; // Alterna tra il raggio esterno e quello interno
         var x = radius * Math.cos(angle); // Calcola la posizione x
         var y = radius * Math.sin(angle); // Calcola la posizione y
