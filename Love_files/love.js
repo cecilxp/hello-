@@ -25,7 +25,7 @@
         this.x = x || 0;
         this.y = y || 0;
     }
-    Point.prototype = {
+    Point.prototype = { 
         clone: function() {
             return new Point(this.x, this.y);
         },
