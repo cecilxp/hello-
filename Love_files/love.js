@@ -477,7 +477,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
         this.color = 'rgb(0,0, '+ random(0, 256) + ')';
         this.alpha = alpha || random(0.3, 1);
         this.angle = angle || random(0, 360);
-        this.scale = scale || 0.3;
+        this.scale = scale || random(0,1);
         this.place = place;
         this.speed = speed;
 
