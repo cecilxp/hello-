@@ -71,18 +71,113 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
             return this.points[i].mul(scale || 1);
         }
     }
+function star(numPoints = 5, innerRadius = 5, outerRadius = 10) {
+    this.points = [];
+    var angleStep = Math.PI / numPoints; // Passo angolare per alternare tra punti esterni ed interni
+    var angle = -Math.PI / 2; // Iniziamo dalla parte superiore della stella
 
+    for (var i = 0; i < numPoints * 2+2; i++) {
+        var radius = (i % 2 === 0) ? outerRadius : innerRadius; // Alterna tra il raggio esterno e quello interno
+        var x = radius * Math.cos(angle); // Calcola la posizione x
+        var y = radius * Math.sin(angle); // Calcola la posizione y
+        this.points.push(new Point(x, y)); // Aggiungi il punto alla lista
+        angle += angleStep; // Incrementa l'angolo
+    }
+
+    this.length = this.points.length;
+}
+    Heart.prototype = {
+        get: function(i, scale) {
+            return this.points[i].mul(scale || 1);
+        }
+    }
+(function(window){
+
+    function random(min, max) {
+        return min + Math.floor(Math.random() * (max - min + 1));
+    }
+
+    function bezier(cp, t) {  
+        var p1 = cp[0].mul((1 - t) * (1 - t));
+        var p2 = cp[1].mul(2 * t * (1 - t));
+        var p3 = cp[2].mul(t * t); 
+        return p1.add(p2).add(p3);
+    }  
+
+    function inheart(x, y, r) {
+        // x^2+(y-(x^2)^(1/3))^2 = 1
+        // http://www.wolframalpha.com/input/?i=x%5E2%2B%28y-%28x%5E2%29%5E%281%2F3%29%29%5E2+%3D+1
+        /*var z = ((x / r) * (x / r) + (y / r) * (y / r) - 1) * ((x / r) * (x / r) + (y / r) * (y / r) - 1) * ((x / r) * (x / r) + (y / r) * (y / r) - 1) - (x / r) * (x / r) * (y / r) * (y / r) * (y / r);
+        return z < 0;*/
+        var distanceSquared = x * x + y * y;
+        // Verifica se la distanza è minore o uguale al quadrato del raggio
+        return distanceSquared <= r * r;
+    }
+
+    Point = function(x, y) {
+        this.x = x || 0;
+        this.y = y || 0;
+    }
+    Point.prototype = {
+        clone: function() {
+            return new Point(this.x, this.y);
+        },
+        add: function(o) {
+            p = this.clone();
+            p.x += o.x;
+            p.y += o.y;
+            return p;
+        },
+        sub: function(o) {
+            p = this.clone();
+            p.x -= o.x;
+            p.y -= o.y;
+            return p;
+        },
+        div: function(n) {
+            p = this.clone();
+            p.x /= n;
+            p.y /= n;
+            return p;
+        },
+        mul: function(n) {
+            p = this.clone();
+            p.x *= n;
+            p.y *= n;
+            return p;
+        }
+    }
+
+    Star = function() {
+        // x = 16 sin^3 t
+        // y = 13 cos t - 5 cos 2t - 2 cos 3t - cos 4t
+        // http://www.wolframalpha.com/input/?i=x+%3D+16+sin%5E3+t%2C+y+%3D+(13+cos+t+-+5+cos+2t+-+2+cos+3t+-+cos+4t)
+        var points = [], x, y, t;
+        for (var i = 10; i < 30; i += 0.2) {
+            t = i / Math.PI;
+            x = 16 * Math.pow(Math.sin(t), 3);
+            y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            points.push(new Point(x, y));
+        }
+        this.points = points;
+        this.length = points.length;
+    }
+    Star.prototype = {
+        get: function(i, scale) {
+            return this.points[i].mul(scale || 1);
+        }
+    }
     Seed = function(tree, point, scale, color) {
         this.tree = tree;
 
         var scale = scale || 1
         var color = color || '#FFFFFF';
 
-        this.heart = {
+        this.star = {
             point  : point,
             scale  : scale,
             color  : color,
-            figure : new Heart(),
+            figure : new Star(),
         }
 
         this.cirle = {
