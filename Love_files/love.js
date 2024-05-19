@@ -71,7 +71,7 @@
     }
     Heart.prototype = {
         get: function(i, scale) {
-            return this.points[i].mul(scale ||Math.random());
+            return this.points[i].mul(scale ||0.5);
         }
     }
 
