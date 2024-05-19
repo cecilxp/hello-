@@ -71,18 +71,36 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
             return this.points[i].mul(scale || 1);
         }
     }
-
+    Star = function() {
+        // x = 16 sin^3 t
+        // y = 13 cos t - 5 cos 2t - 2 cos 3t - cos 4t
+        // http://www.wolframalpha.com/input/?i=x+%3D+16+sin%5E3+t%2C+y+%3D+(13+cos+t+-+5+cos+2t+-+2+cos+3t+-+cos+4t)
+        var points = [], x, y, t;
+        for (var i = 10; i < 30; i += 0.2) {
+            t = i / Math.PI;
+            x = 16 * Math.pow(Math.sin(t), 3);
+            y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            points.push(new Point(x, y));
+        }
+        this.points = points;
+        this.length = points.length;
+    }
+    Star.prototype = {
+        get: function(i, scale) {
+            return this.points[i].mul(scale || 1);
+        }
+    }
     Seed = function(tree, point, scale, color) {
         this.tree = tree;
 
         var scale = scale || 1
         var color = color || '#FFFFFF';
 
-        this.heart = {
+        this.star = {
             point  : point,
             scale  : scale,
             color  : color,
-            figure : new Heart(),
+            figure : new Star(),
         }
 
         this.cirle = {
@@ -94,7 +112,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
     }
     Seed.prototype = {
         draw: function() {
-            this.drawHeart();
+            this.drawStar();
             this.drawText();
         },
         addPosition: function(x, y) {
@@ -109,28 +127,28 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
             this.addPosition(x, y);
         },
         canScale: function() {
-            return this.heart.scale > 0.2;
+            return this.Star.scale > 0.2;
         },
-        setHeartScale: function(scale) {
-            this.heart.scale *= scale;
+        setStarScale: function(scale) {
+            this.star.scale *= scale;
         },
         scale: function(scale) {
             this.clear();
             this.drawCirle();
-            this.drawHeart();
-            this.setHeartScale(scale);
+            this.drawStar();
+            this.setStarScale(scale);
         },
-        drawHeart: function() {
-            var ctx = this.tree.ctx, heart = this.heart;
-            var point = heart.point, color = heart.color, 
-                scale = heart.scale;
+        drawStar: function() {
+            var ctx = this.tree.ctx, star = this.star;
+            var point = star.point, color = star.color, 
+                scale = star.scale;
             ctx.save();
             ctx.fillStyle = color;
             ctx.translate(point.x, point.y);
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            for (var i = 0; i < heart.figure.length; i++) {
-                var p = heart.figure.get(i, scale);
+            for (var i = 0; i < star.figure.length; i++) {
+                var p = star.figure.get(i, scale);
                 ctx.lineTo(p.x, -p.y);
             }
             ctx.closePath();
@@ -153,9 +171,9 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
             ctx.restore();
         },
         drawText: function() {
-            var ctx = this.tree.ctx, heart = this.heart;
-            var point = heart.point, color = heart.color, 
-                scale = heart.scale;
+            var ctx = this.tree.ctx, star = this.star;
+            var point = star.point, color = star.color, 
+                scale = star.scale;
             ctx.save();
             ctx.strokeStyle = color;
             ctx.fillStyle = color;
