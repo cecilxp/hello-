@@ -71,22 +71,21 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
             return this.points[i].mul(scale || 1);
         }
     }
-function star(numPoints = 5, innerRadius = 5, outerRadius = 10) {
-    this.points = [];
-    var angleStep = Math.PI / numPoints; // Passo angolare per alternare tra punti esterni ed interni
-    var angle = -Math.PI / 2; // Iniziamo dalla parte superiore della stella
-
-    for (var i = 0; i < numPoints * 2+2; i++) {
-        var radius = (i % 2 === 0) ? outerRadius : innerRadius; // Alterna tra il raggio esterno e quello interno
-        var x = radius * Math.cos(angle); // Calcola la posizione x
-        var y = radius * Math.sin(angle); // Calcola la posizione y
-        this.points.push(new Point(x, y)); // Aggiungi il punto alla lista
-        angle += angleStep; // Incrementa l'angolo
+    Star = function() {
+        // x = 16 sin^3 t
+        // y = 13 cos t - 5 cos 2t - 2 cos 3t - cos 4t
+        // http://www.wolframalpha.com/input/?i=x+%3D+16+sin%5E3+t%2C+y+%3D+(13+cos+t+-+5+cos+2t+-+2+cos+3t+-+cos+4t)
+        var points = [], x, y, t;
+        for (var i = 10; i < 30; i += 0.2) {
+            t = i / Math.PI;
+            x = 16 * Math.pow(Math.sin(t), 3);
+            y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+            points.push(new Point(x, y));
+        }
+        this.points = points;
+        this.length = points.length;
     }
-
-    this.length = this.points.length;
-}
-    Heart.prototype = {
+    Star.prototype = {
         get: function(i, scale) {
             return this.points[i].mul(scale || 1);
         }
