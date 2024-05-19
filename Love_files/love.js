@@ -51,22 +51,20 @@
         }
     }
 
-    Heart = function() {
-            var points = [], x, y, angle;
-            var numPoints = 5;
-            var innerRadius = 5;
-            var outerRadius = 10;
-            
-            for (var i = 0; i < numPoints * 2; i++) {
-                angle = Math.PI / numPoints * i;
-                var radius = (i % 2 === 0) ? outerRadius : innerRadius;
-                x = radius * Math.cos(angle);
-                y = radius * Math.sin(angle);
-                points.push(new Point(x, y));
-            }
-        this.points = points;
-        this.length = points.length;
+function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
+    this.points = [];
+    var angle;
+
+    for (var i = 0; i < numPoints * 2; i++) {
+        angle = Math.PI / numPoints * i; // Calcola l'angolo corrente
+        var radius = (i % 2 === 0) ? outerRadius : innerRadius; // Alterna tra il raggio esterno e quello interno
+        var x = radius * Math.cos(angle); // Calcola la posizione x
+        var y = radius * Math.sin(angle); // Calcola la posizione y
+        this.points.push(new Point(x, y)); // Aggiungi il punto alla lista
     }
+
+    this.length = this.points.length;
+}
     Heart.prototype = {
         get: function(i, scale) {
             return this.points[i].mul(scale || 1);
