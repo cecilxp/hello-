@@ -471,7 +471,7 @@ function randomColor() {
     if (Math.random() < 0.8) {
         return 'rgb(0, 0, ' + Math.floor(Math.random() * 256) + ')';
     } else {
-        return 'rgb(255,255 , 0)';
+        return 'rgb(0,0 , 0)';
     }
 }
 
