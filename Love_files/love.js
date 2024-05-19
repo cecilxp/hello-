@@ -468,7 +468,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
         }
     }
 function randomColor() {
-    if (Math.random() < 0.95) {
+    if (Math.random() < 0.98) {
         return 'rgb(0, 0, ' + Math.floor(Math.random() * 256) + ')';
     } else {
         return 'rgb(255,255 , 255)';
