@@ -467,8 +467,27 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
         	ctx.restore();
         }
     }
+function randomColor() {
+    if (Math.random() < 0.5) {
+        return 'rgb(0, 0, ' + Math.floor(Math.random() * 256) + ')';
+    } else {
+        return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0)';
+    }
+}
 
-    Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
+Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
+    this.tree = tree;
+    this.point = point;
+    this.color = color || randomColor();
+    this.alpha = alpha || Math.random() * 0.7 + 0.3; // 0.3 to 1
+    this.angle = angle || Math.random() * 360;
+    this.scale = scale || 1;
+    this.place = place;
+    this.speed = speed;
+    this.figure = figure;
+}
+
+    /*Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
         this.tree = tree;
         this.point = point;
         //var randomBlue = Math.floor(Math.random() * 256); // Genera un numero casuale tra 0 e 255 per il canale blu
@@ -483,7 +502,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
 
 
         this.figure = figure;
-    }
+    }*/
     Bloom.prototype = {
         setFigure: function(figure) {
             this.figure = figure;
