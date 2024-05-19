@@ -480,7 +480,7 @@
         this.color = 'rgb(0,0, '+ random(0, 256) + ')';
         this.alpha = alpha || random(0.3, 1);
         this.angle = angle || random(0, 360);
-        this.scale = scale || 0.1;
+        this.scale = scale || 0.05;
         this.place = place;
         this.speed = speed;
 
