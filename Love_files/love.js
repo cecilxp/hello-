@@ -264,7 +264,7 @@ function Heart(numPoints = 5, innerRadius = 5, outerRadius = 10) {
         initBloom: function() {
             var bloom = this.opt.bloom || {};
             var cache = [],
-                num = bloom.num || 500, 
+                num = bloom.num || 900, 
                 width = bloom.width || this.width,
                 height = bloom.height || this.height,
                 figure = this.seed.heart.figure;
