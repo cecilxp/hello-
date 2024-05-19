@@ -471,21 +471,25 @@
         }
     }
 
-    Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
-        this.tree = tree;
-        this.point = point;
-        //var randomBlue = Math.floor(Math.random() * 256); // Genera un numero casuale tra 0 e 255 per il canale blu
-        //this.color = 'rgb(0, 0, ' + randomBlue + ')';
-        //this.color = color || 'rgb(' + random(0, 256) + ',' + random(0, 256) + ',256)'
-        this.color = 'rgb(0,0, '+ random(0, 256) + ')';
-        this.alpha = alpha || random(0.3, 1);
-        this.angle = angle || random(0, 360);
-        this.scale = scale || 0.05;
-        this.place = place;
-        this.speed = speed;
-
-        this.figure = figure;
+function randomColor() {
+    if (Math.random() < 0.95) {
+        return 'rgb(0, 0, ' + Math.floor(Math.random() * 256) + ')';
+    } else {
+        return 'rgb(255,255 , 255)';
     }
+}
+
+Bloom = function(tree, point, figure, color, alpha, angle, scale, place, speed) {
+    this.tree = tree;
+    this.point = point;
+    this.color = color || randomColor();
+    this.alpha = alpha || Math.random() * 0.7 + 0.3; // 0.3 to 1
+    this.angle = angle || Math.random() * 360;
+    this.scale = scale || 1;
+    this.place = place;
+    this.speed = speed;
+    this.figure = figure;
+}
     Bloom.prototype = {
         setFigure: function(figure) {
             this.figure = figure;
